@@ -59,7 +59,7 @@ function createFile {
         clear
         touch $FILE
         echo "file \""$FILE"\" created."
-        edit
+        exit 7
     fi
 }
 function  deleteFile {
@@ -99,12 +99,15 @@ function edit {
     EDITING=1
     CURSORLOC=${#CONTENT}
 
+    clear
+    CONTENT="${CONTENT:0:$CURSORLOC}""▮""${CONTENT:$CURSORLOC}"
+    echo $CONTENT
+
     while [ $EDITING != 0 ]; 
     do 
         CONTENT="${CONTENT:0:$CURSORLOC}""${CONTENT:$CURSORLOC+1}"
         LENGTH=${#CONTENT}
         read -s -n 1 key
-        read -s -n 4 arw
         
         if [ "$key" = "0" ]; 
         then 
@@ -139,6 +142,7 @@ function edit {
         if [ "$key" = "8" ];
         then
             CONTENT="${CONTENT:0:$CURSORLOC} ${CONTENT:$CURSORLOC}"
+            let "CURSORLOC=CURSORLOC+1"
         fi
 
         if [ "$key" != "0" ] && [ "$key" != "-" ] && [ "$key" != "=" ] && [ "$key" != "9" ] && [ "$key" != "8" ];
