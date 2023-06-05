@@ -107,7 +107,6 @@ function edit {
         CONTENT="${CONTENT:0:$CURSORLOC}""${CONTENT:$CURSORLOC+1}"
         LENGTH=${#CONTENT}
         read -s -n 1 key
-        read -s -n 4 spc
         
         if [ "$key" = $'\e' ]; 
         then 
@@ -141,12 +140,6 @@ function edit {
 
         if [ "$key" = "/" ];
         then
-            CONTENT="${CONTENT:0:$CURSORLOC}"" ""${CONTENT:$CURSORLOC}"
-            let "CURSORLOC=CURSORLOC+1"
-        fi
-
-        if [ "$spc" = $' ' ]; 
-        then 
             CONTENT="${CONTENT:0:$CURSORLOC}"" ""${CONTENT:$CURSORLOC}"
             let "CURSORLOC=CURSORLOC+1"
         fi
