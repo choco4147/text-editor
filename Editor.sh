@@ -154,7 +154,7 @@ function edit {
         echo $CONTENT
     done
     clear
-    printd "save modified file? (y/n) "
+    printf "save modified file? (y/n) "
     read YN
     if [ "$YN" = "n" ];
     then 
