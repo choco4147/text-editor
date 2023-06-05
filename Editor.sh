@@ -1,5 +1,7 @@
 #!/bin/bash
 
+IFS= read -s -N 1
+
 function start {
     VALIDINPUT=0
     # if input is equal to e, edit file
@@ -100,7 +102,7 @@ function edit {
     CURSORLOC=${#CONTENT}
 
     clear
-    CONTENT="${CONTENT:0:$CURSORLOC}""▮""${CONTENT:$CURSORLOC}"
+    CONTENT="${CONTENT:0:$CURSORLOC}""|""${CONTENT:$CURSORLOC}"
     echo $CONTENT
 
     while [ $EDITING != 0 ]; 
@@ -109,7 +111,7 @@ function edit {
         LENGTH=${#CONTENT}
         read -s -n 1 key
         
-        if [ "$key" = "0" ]; 
+        if [ "$key" = $'\e' ]; 
         then 
             EDITING=0 
         fi
@@ -130,7 +132,7 @@ function edit {
             fi
         fi
 
-        if [ "$key" = "9" ];
+        if [ "$key" = $'\177' ];
         then
             if [ $CURSORLOC -gt 0 ];
             then
@@ -139,24 +141,17 @@ function edit {
             fi
         fi
 
-        if [ "$key" = "8" ];
-        then
-            CONTENT="${CONTENT:0:$CURSORLOC} ${CONTENT:$CURSORLOC}"
-            let "CURSORLOC=CURSORLOC+1"
-        fi
-
-        if [ "$key" != "0" ] && [ "$key" != "-" ] && [ "$key" != "=" ] && [ "$key" != "9" ] && [ "$key" != "8" ];
+        if [ "$key" != $'\e' ] && [ "$key" != "-" ] && [ "$key" != "=" ] && [ "$key" != $'\177' ];
         then 
             CONTENT="${CONTENT:0:$CURSORLOC}""$key""${CONTENT:$CURSORLOC}"
             let "CURSORLOC=CURSORLOC+1"
         fi
         clear
-        CONTENT="${CONTENT:0:$CURSORLOC}""▮""${CONTENT:$CURSORLOC}"
+        CONTENT="${CONTENT:0:$CURSORLOC}""|""${CONTENT:$CURSORLOC}"
         echo $CONTENT
-
     done
-    printf "\n\n\n\n"
-    printf "save modified file? (y/n) "
+    clear
+    echo "save modified file? (y/n) "
     read YN
     if [ "$YN" = "n" ];
     then 
