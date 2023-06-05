@@ -1,7 +1,4 @@
 #!/bin/bash
-
-IFS= read -s -N 1
-
 function start {
     VALIDINPUT=0
     # if input is equal to e, edit file
