@@ -138,7 +138,13 @@ function edit {
             fi
         fi
 
-        if [ "$key" != $'\e' ] && [ "$key" != "-" ] && [ "$key" != "=" ] && [ "$key" != $'\177' ];
+        if [ "$key" = "/" ];
+        then
+            CONTENT="${CONTENT:0:$CURSORLOC}"" ""${CONTENT:$CURSORLOC}"
+            let "CURSORLOC=CURSORLOC+1"
+        fi
+
+        if [ "$key" != "/" ] && [ "$key" != $'\s' ] && [ "$key" != $'\e' ] && [ "$key" != "-" ] && [ "$key" != "=" ] && [ "$key" != $'\177' ];
         then 
             CONTENT="${CONTENT:0:$CURSORLOC}""$key""${CONTENT:$CURSORLOC}"
             let "CURSORLOC=CURSORLOC+1"
