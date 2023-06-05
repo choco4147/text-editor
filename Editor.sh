@@ -68,7 +68,7 @@ function  deleteFile {
 
     if test -f "$FILE"; 
     then
-        echo "file \""$FILE"\" found, are you sure you want to delete it? (y/n)"
+        printf "file \""$FILE"\" found, are you sure you want to delete it? (y/n) "
         read YESNO
         if [ "$YESNO" = 'y' ]; 
         then
@@ -154,7 +154,7 @@ function edit {
         echo $CONTENT
     done
     clear
-    echo "save modified file? (y/n) "
+    printd "save modified file? (y/n) "
     read YN
     if [ "$YN" = "n" ];
     then 
@@ -167,6 +167,6 @@ function edit {
     echo $CONTENT >> $FILE
 }
 
-echo "Would you like to edit (e), create (c), or delete (d) a file?"
+printf "Would you like to edit (e), create (c), or delete (d) a file? "
 read INPUT 
 start
