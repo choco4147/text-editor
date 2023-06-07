@@ -2,7 +2,7 @@
 
 a cli-based text editor written in bash, made as a final project for my computer science class
 
-## installation
+### installation
 
 on a linux system, run `git clone https://github.com/choco4147/text-editor/edit/main/README.md`
 
